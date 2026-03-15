@@ -1,0 +1,623 @@
+/* ============================================================
+   PODTS — animations.css
+   Subtle & refined animation layer + dark mode
+   ============================================================ */
+
+/* ── 1. DARK MODE VARIABLES ─────────────────────────────────── */
+[data-theme="dark"] {
+    --bg:           #0f1117;
+    --surface:      #161b27;
+    --surface2:     #1c2233;
+    --border:       #252d40;
+    --text:         #e8eaf0;
+    --text-muted:   #8892aa;
+    --text-faint:   #4a5268;
+    --accent:       #e8eaf0;
+    --accent-inv:   #0f1117;
+    --mark:         #c8f135;
+    --shadow-sm:    0 1px 4px rgba(0,0,0,0.4);
+    --shadow-md:    0 4px 24px rgba(0,0,0,0.5);
+    --shadow-lg:    0 12px 48px rgba(0,0,0,0.6);
+}
+
+/* ── 2. THEME TRANSITION — smooth color changeover ─────────── */
+body,
+#navbar,
+.page,
+.modal-box,
+.modal-overlay,
+.designer-controls,
+.mockup-wrapper,
+.cart-summary,
+.product-card,
+.feat-card,
+.step,
+.value-card,
+.about-stat,
+.cart-item,
+.form-input,
+.filter-btn,
+.garment-btn,
+.size-pill,
+.print-tab,
+.cart-btn {
+    transition:
+            background-color 0.4s ease,
+            border-color 0.4s ease,
+            color 0.4s ease,
+            box-shadow 0.4s ease;
+}
+
+/* ── 3. DARK MODE TOGGLE BUTTON ─────────────────────────────── */
+.theme-toggle {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 200;
+    box-shadow: var(--shadow-md);
+    transition:
+            background 0.35s ease,
+            border-color 0.35s ease,
+            transform 0.22s cubic-bezier(0.4,0,0.2,1),
+            box-shadow 0.22s ease;
+    overflow: hidden;
+}
+.theme-toggle:hover {
+    transform: scale(1.08);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--text);
+}
+.theme-toggle:active {
+    transform: scale(0.94);
+}
+
+/* sun / moon icons inside the button */
+.theme-toggle .icon-sun,
+.theme-toggle .icon-moon {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    transition: opacity 0.3s ease, transform 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+.theme-toggle .icon-sun  { opacity: 1; transform: rotate(0deg) scale(1); }
+.theme-toggle .icon-moon { opacity: 0; transform: rotate(-90deg) scale(0.6); }
+
+[data-theme="dark"] .theme-toggle .icon-sun  { opacity: 0; transform: rotate(90deg) scale(0.6); }
+[data-theme="dark"] .theme-toggle .icon-moon { opacity: 1; transform: rotate(0deg) scale(1); }
+
+/* ── 4. PAGE TRANSITIONS — slide from right ─────────────────── */
+.page { display: none; padding-top: var(--nav-h); min-height: 100vh; }
+
+.page.active {
+    display: block;
+    animation: pageSlideIn 0.38s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.page.page-exit {
+    animation: pageSlideOut 0.22s ease forwards;
+}
+
+@keyframes pageSlideIn {
+    from { opacity: 0; transform: translateX(22px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes pageSlideOut {
+    from { opacity: 1; transform: translateX(0); }
+    to   { opacity: 0; transform: translateX(-14px); }
+}
+
+/* ── 5. NAV ACTIVE INDICATOR PILL ───────────────────────────── */
+.nav-links {
+    position: relative;
+}
+.nav-indicator {
+    position: absolute;
+    background: var(--surface2);
+    border-radius: 100px;
+    pointer-events: none;
+    transition: left 0.3s cubic-bezier(0.4,0,0.2,1),
+    width 0.3s cubic-bezier(0.4,0,0.2,1),
+    top 0.3s ease,
+    height 0.3s ease;
+    z-index: 0;
+}
+.nav-links a { position: relative; z-index: 1; }
+.nav-links a.active { background: transparent; }
+
+/* ── 6. LOGO DOT PULSE ──────────────────────────────────────── */
+.logo-dot {
+    animation: logoPulse 3s ease-in-out infinite;
+}
+@keyframes logoPulse {
+    0%,100% { transform: scale(1); opacity: 1; }
+    50%     { transform: scale(1.35); opacity: 0.7; }
+}
+.nav-logo:hover .logo-dot {
+    animation: logoBurst 0.4s cubic-bezier(0.4,0,0.2,1);
+}
+@keyframes logoBurst {
+    0%   { transform: scale(1); }
+    40%  { transform: scale(1.7); }
+    100% { transform: scale(1); }
+}
+
+/* ── 7. SCROLL REVEAL ───────────────────────────────────────── */
+.reveal {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.55s cubic-bezier(0.22,1,0.36,1),
+    transform 0.55s cubic-bezier(0.22,1,0.36,1);
+}
+.reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.08s; }
+.reveal-delay-2 { transition-delay: 0.16s; }
+.reveal-delay-3 { transition-delay: 0.24s; }
+.reveal-delay-4 { transition-delay: 0.32s; }
+
+/* ── 8. PRODUCT CARD STAGGER ────────────────────────────────── */
+.product-card {
+    animation: cardStagger 0.4s cubic-bezier(0.22,1,0.36,1) both;
+}
+/* delay set via JS inline style --i */
+.product-card { animation-delay: calc(var(--i, 0) * 60ms); }
+
+@keyframes cardStagger {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* "Design It →" arrow shoot on hover */
+.product-design-btn {
+    overflow: hidden;
+    position: relative;
+}
+.product-design-btn .arrow-text {
+    display: inline-block;
+    transition: transform 0.22s cubic-bezier(0.4,0,0.2,1);
+}
+.product-design-btn:hover .arrow-text {
+    transform: translateX(4px);
+}
+
+/* ── 9. FILTER BUTTON SLIDING INDICATOR ─────────────────────── */
+.catalog-filters {
+    position: relative;
+}
+.filter-pill-indicator {
+    position: absolute;
+    background: var(--text);
+    border-radius: 100px;
+    pointer-events: none;
+    z-index: 0;
+    transition: left 0.28s cubic-bezier(0.4,0,0.2,1),
+    width 0.28s cubic-bezier(0.4,0,0.2,1),
+    top 0.28s ease,
+    height 0.28s ease;
+}
+.filter-btn {
+    position: relative;
+    z-index: 1;
+}
+.filter-btn.active {
+    color: var(--accent-inv) !important;
+    background: transparent !important;
+    border-color: transparent !important;
+}
+
+/* ── 10. COLOR SWATCH POP ────────────────────────────────────── */
+@keyframes swatchPop {
+    0%   { transform: scale(1); }
+    35%  { transform: scale(1.28); }
+    65%  { transform: scale(0.94); }
+    100% { transform: scale(1); }
+}
+.color-swatch.popping {
+    animation: swatchPop 0.32s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ── 11. SIZE PILL RIPPLE ────────────────────────────────────── */
+.size-pill {
+    position: relative;
+    overflow: hidden;
+}
+.ripple {
+    position: absolute;
+    border-radius: 50%;
+    transform: scale(0);
+    background: rgba(255,255,255,0.25);
+    animation: rippleAnim 0.5s linear;
+    pointer-events: none;
+}
+[data-theme="dark"] .ripple {
+    background: rgba(255,255,255,0.12);
+}
+.size-pill.active .ripple {
+    background: rgba(255,255,255,0.2);
+}
+@keyframes rippleAnim {
+    to { transform: scale(3.5); opacity: 0; }
+}
+
+/* ── 12. GENERATE BUTTON SHIMMER ────────────────────────────── */
+#generate-btn {
+    position: relative;
+    overflow: hidden;
+}
+#generate-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+            105deg,
+            transparent 30%,
+            rgba(255,255,255,0.12) 50%,
+            transparent 70%
+    );
+    transform: translateX(-100%);
+}
+#generate-btn:hover::after {
+    animation: shimmer 0.7s ease forwards;
+}
+#generate-btn.loading::after {
+    animation: shimmerLoop 1.4s ease infinite;
+}
+@keyframes shimmer {
+    to { transform: translateX(100%); }
+}
+@keyframes shimmerLoop {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* ── 13. PRINT APPEAR ON SHIRT ───────────────────────────────── */
+@keyframes printAppear {
+    from { opacity: 0; transform: scale(0.82); }
+    to   { opacity: 1; transform: scale(1); }
+}
+.print-just-applied {
+    animation: printAppear 0.38s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+/* ── 14. CART ICON BOUNCE ────────────────────────────────────── */
+@keyframes cartBounce {
+    0%   { transform: scale(1) rotate(0deg); }
+    20%  { transform: scale(1.2) rotate(-8deg); }
+    40%  { transform: scale(0.92) rotate(6deg); }
+    60%  { transform: scale(1.06) rotate(-3deg); }
+    80%  { transform: scale(0.98) rotate(1deg); }
+    100% { transform: scale(1) rotate(0deg); }
+}
+.cart-btn.bouncing {
+    animation: cartBounce 0.55s cubic-bezier(0.4,0,0.2,1);
+}
+
+/* ── 15. CART COUNT POP ──────────────────────────────────────── */
+@keyframes countPop {
+    0%   { transform: scale(1); }
+    40%  { transform: scale(1.4); }
+    100% { transform: scale(1); }
+}
+.cart-count.popping {
+    animation: countPop 0.3s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+/* ── 16. ADD TO CART PARTICLE BURST ─────────────────────────── */
+.particle {
+    position: fixed;
+    width: 5px;
+    height: 5px;
+    border-radius: 50%;
+    background: var(--text);
+    pointer-events: none;
+    z-index: 9000;
+    animation: particleFly var(--dur, 0.55s) ease-out forwards;
+}
+@keyframes particleFly {
+    0%   { opacity: 1; transform: translate(0,0) scale(1); }
+    100% { opacity: 0; transform: translate(var(--tx,0px), var(--ty,0px)) scale(0.2); }
+}
+
+/* ── 17. CART ITEM SLIDE-IN ──────────────────────────────────── */
+@keyframes cartItemIn {
+    from { opacity: 0; transform: translateX(18px); }
+    to   { opacity: 1; transform: translateX(0); }
+}
+.cart-item {
+    animation: cartItemIn 0.32s cubic-bezier(0.22,1,0.36,1) both;
+}
+.cart-item { animation-delay: calc(var(--i, 0) * 50ms); }
+
+/* ── 18. CART ITEM SLIDE-OUT ─────────────────────────────────── */
+@keyframes cartItemOut {
+    from { opacity: 1; transform: translateX(0) scaleY(1); max-height: 120px; margin-bottom: 1rem; }
+    to   { opacity: 0; transform: translateX(-20px) scaleY(0.7); max-height: 0; margin-bottom: 0; padding: 0; }
+}
+.cart-item.removing {
+    animation: cartItemOut 0.28s ease forwards;
+    overflow: hidden;
+}
+
+/* ── 19. QTY COUNTER FLIP ────────────────────────────────────── */
+@keyframes qtyFlipUp {
+    from { transform: translateY(-6px); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+}
+@keyframes qtyFlipDown {
+    from { transform: translateY(6px); opacity: 0; }
+    to   { transform: translateY(0); opacity: 1; }
+}
+.qty-val.flip-up   { animation: qtyFlipUp   0.2s ease; }
+.qty-val.flip-down { animation: qtyFlipDown 0.2s ease; }
+
+/* ── 20. ORDER SUCCESS CONFETTI ──────────────────────────────── */
+.confetti-piece {
+    position: fixed;
+    width: 7px;
+    height: 7px;
+    border-radius: 1px;
+    pointer-events: none;
+    z-index: 9999;
+    animation: confettiFall var(--dur, 1s) ease-in forwards;
+}
+@keyframes confettiFall {
+    0%   { opacity: 1; transform: translate(0,0) rotate(0deg); }
+    100% { opacity: 0; transform: translate(var(--tx,0px), var(--ty,80px)) rotate(var(--rot,180deg)); }
+}
+
+/* ── 21. MODAL ENTRANCE (enhanced) ──────────────────────────── */
+.modal-box {
+    animation: modalIn 0.34s cubic-bezier(0.34,1.46,0.64,1);
+}
+@keyframes modalIn {
+    from { transform: translateY(28px) scale(0.96); opacity: 0; }
+    to   { transform: translateY(0) scale(1); opacity: 1; }
+}
+
+/* ── BRANDED DOT CURSOR ──────────────────────────────────────── */
+/* Hide the system cursor everywhere */
+*, *::before, *::after { cursor: none !important; }
+
+.podts-cursor {
+    position: fixed;
+    top: 0; left: 0;
+    width: 10px; height: 10px;
+    background: var(--text);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99999;
+    transform: translate(-50%, -50%);
+    transition:
+            width   0.2s cubic-bezier(0.4,0,0.2,1),
+            height  0.2s cubic-bezier(0.4,0,0.2,1),
+            opacity 0.2s ease,
+            background 0.2s ease;
+    will-change: transform;
+}
+
+/* Larger trailing ring */
+.podts-cursor-ring {
+    position: fixed;
+    top: 0; left: 0;
+    width: 32px; height: 32px;
+    border: 1.5px solid var(--text);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 99998;
+    transform: translate(-50%, -50%);
+    opacity: 0.25;
+    transition:
+            width   0.35s cubic-bezier(0.4,0,0.2,1),
+            height  0.35s cubic-bezier(0.4,0,0.2,1),
+            opacity 0.35s ease;
+    will-change: transform;
+}
+
+/* Hover state — dot grows, ring contracts */
+body.cursor-hover .podts-cursor {
+    width: 18px; height: 18px;
+    opacity: 0.7;
+}
+body.cursor-hover .podts-cursor-ring {
+    width: 14px; height: 14px;
+    opacity: 0;
+}
+
+/* Click state — dot pulses */
+body.cursor-click .podts-cursor {
+    width: 22px; height: 22px;
+    opacity: 0.9;
+    background: var(--mark);
+}
+
+/* Hide cursor when it leaves the window */
+body.cursor-out .podts-cursor,
+body.cursor-out .podts-cursor-ring {
+    opacity: 0;
+}
+
+/* ── LOGO INTRO OVERLAY ───────────────────────────────────────── */
+#intro-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 9000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: all;
+    /* blurred backdrop — page is rendered behind this */
+    backdrop-filter: blur(18px) saturate(0.7);
+    -webkit-backdrop-filter: blur(18px) saturate(0.7);
+    background: rgba(var(--intro-bg-rgb, 249,248,246), 0.55);
+    transition: opacity 0.4s ease;
+}
+#intro-overlay.intro-hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+[data-theme="dark"] #intro-overlay {
+    background: rgba(15,17,23,0.60);
+    --intro-bg-rgb: 15,17,23;
+}
+
+/* The floating logo word — centred during intro */
+#intro-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-mono);
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--text);
+    position: fixed;            /* stays fixed so we can FLIP it to nav */
+    /* centred via JS on init */
+    will-change: transform, font-size, opacity;
+    transition:
+            top    0.55s cubic-bezier(0.4, 0, 0.2, 1),
+            left   0.55s cubic-bezier(0.4, 0, 0.2, 1),
+            font-size 0.55s cubic-bezier(0.4, 0, 0.2, 1),
+            letter-spacing 0.55s ease,
+            opacity 0.2s ease;
+    z-index: 9001;
+    white-space: nowrap;
+}
+
+/* Individual letters */
+.intro-letter {
+    display: inline-block;
+    opacity: 0;
+    filter: blur(8px);
+    transform: translateY(4px);
+    transition:
+            opacity      0.22s ease,
+            filter       0.28s ease,
+            transform    0.28s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.intro-letter.visible {
+    opacity: 1;
+    filter: blur(0px);
+    transform: translateY(0);
+}
+
+/* The dot beside the logo */
+#intro-dot {
+    width: 10px;
+    height: 10px;
+    background: var(--text);
+    border-radius: 50%;
+    flex-shrink: 0;
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity 0.25s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+#intro-dot.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* hide real nav-logo until intro done */
+.intro-running .nav-logo {
+    opacity: 0;
+    pointer-events: none;
+}
+.intro-running #navbar {
+    border-bottom-color: transparent;
+    background: transparent;
+}
+
+/* ── DARK MODE SHIRT ADAPTATIONS ─────────────────────────────── */
+[data-theme="dark"] .mockup-wrapper {
+    background: var(--surface);
+}
+[data-theme="dark"] #navbar {
+    background: var(--bg);
+    border-color: var(--border);
+}
+[data-theme="dark"] #navbar.scrolled {
+    background: rgba(15,17,23,0.80);
+}
+[data-theme="dark"] .marquee-wrap {
+    background: var(--surface2);
+}
+[data-theme="dark"] .home-cta-band {
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+}
+[data-theme="dark"] .hero-bg-text {
+    color: var(--border);
+}
+[data-theme="dark"] .features-grid,
+[data-theme="dark"] .about-stat-row,
+[data-theme="dark"] .product-grid,
+[data-theme="dark"] .about-values {
+    background: var(--border);
+}
+[data-theme="dark"] .feat-card,
+[data-theme="dark"] .step,
+[data-theme="dark"] .about-stat,
+[data-theme="dark"] .value-card {
+    background: var(--surface);
+}
+[data-theme="dark"] .feat-card:hover,
+[data-theme="dark"] .step:hover,
+[data-theme="dark"] .value-card:hover {
+    background: var(--surface2);
+}
+[data-theme="dark"] .product-card { background: var(--surface); }
+[data-theme="dark"] .product-card:hover { background: var(--surface2); }
+[data-theme="dark"] .product-thumb-wrap { background: var(--surface2); }
+[data-theme="dark"] #ai-prompt {
+    background: var(--surface2);
+    color: var(--text);
+}
+[data-theme="dark"] #ai-prompt:focus {
+    background: var(--surface);
+}
+[data-theme="dark"] .upload-zone:hover {
+    background: var(--surface2);
+}
+[data-theme="dark"] .toast {
+    background: var(--surface);
+    color: var(--text);
+    border: 1px solid var(--border);
+}
+[data-theme="dark"] .print-preview-box {
+    background: var(--surface2);
+    border-color: var(--border);
+}
+[data-theme="dark"] .cart-item { background: var(--surface); }
+[data-theme="dark"] .modal-overlay {
+    background: rgba(0,0,0,0.72);
+}
+[data-theme="dark"] .modal-box { background: var(--surface); }
+[data-theme="dark"] .ftag {
+    background: var(--surface);
+    border-color: var(--border);
+}
+[data-theme="dark"] .cart-summary { background: var(--surface); }
+[data-theme="dark"] .designer-controls { background: var(--surface); }
+[data-theme="dark"] .form-input {
+    background: var(--surface2);
+    color: var(--text);
+    border-color: var(--border);
+}
+[data-theme="dark"] .form-input:focus {
+    border-color: var(--text);
+}
+[data-theme="dark"] .home-cta-band .btn-primary {
+    background: var(--mark);
+    color: #111;
+}

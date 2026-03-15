@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>PODTS — Print On Demand T-Shirts</title>
+    <script>
+        // Apply saved theme before CSS renders to prevent flash
+        (function(){
+            var t = localStorage.getItem('podts-theme');
+            if (t) document.documentElement.setAttribute('data-theme', t);
+        })();
+    </script>
+    <link rel="stylesheet" href="css/reset.css" />
+    <link rel="stylesheet" href="css/main.css" />
+    <link rel="stylesheet" href="css/nav.css" />
+    <link rel="stylesheet" href="css/home.css" />
+    <link rel="stylesheet" href="css/catalog.css" />
+    <link rel="stylesheet" href="css/designer.css" />
+    <link rel="stylesheet" href="css/cart.css" />
+    <link rel="stylesheet" href="css/about.css" />
+    <link rel="stylesheet" href="css/animations.css" />
+    <link rel="stylesheet" href="css/trends.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+    <div class="nav-inner">
+        <a class="nav-logo" href="#" onclick="showPage('home')">
+            <span class="logo-dot"></span>PODTS
+        </a>
+        <ul class="nav-links">
+            <li><a href="#" onclick="showPage('home')" data-page="home">Home</a></li>
+            <li><a href="#" onclick="showPage('catalog')" data-page="catalog">Catalog</a></li>
+            <li><a href="#" onclick="showPage('trends')" data-page="trends">Inspo</a></li>
+            <li><a href="#" onclick="showPage('designer')" data-page="designer">Designer</a></li>
+            <li><a href="#" onclick="showPage('about')" data-page="about">About</a></li>
+        </ul>
+        <button class="cart-btn" onclick="showPage('cart')">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+            <span class="cart-count" id="cart-count">0</span>
+        </button>
+        <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+    <div class="mobile-menu" id="mobile-menu">
+        <a href="#" onclick="showPage('home');toggleMobileMenu()">Home</a>
+        <a href="#" onclick="showPage('catalog');toggleMobileMenu()">Catalog</a>
+        <a href="#" onclick="showPage('trends');toggleMobileMenu()">Inspo</a>
+        <a href="#" onclick="showPage('designer');toggleMobileMenu()">Designer</a>
+        <a href="#" onclick="showPage('about');toggleMobileMenu()">About</a>
+        <a href="#" onclick="showPage('cart');toggleMobileMenu()">Cart</a>
+    </div>
+</nav>
+
+<!-- PAGES -->
+<div id="page-home" class="page active">
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-bg-text">PODTS</div>
+        <div class="hero-content">
+            <div class="hero-tag">Print On Demand</div>
+            <h1 class="hero-title">Wear<br/><em>Your</em><br/>Imagination.</h1>
+            <p class="hero-sub">Design custom apparel with AI-generated prints. Upload your art. Express everything.</p>
+            <div class="hero-ctas">
+                <button class="btn-primary" onclick="showPage('designer')">Start Designing</button>
+                <button class="btn-secondary" onclick="showPage('catalog')">Browse Catalog</button>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="shirt-float" id="hero-shirt">
+                <svg viewBox="0 0 300 340" xmlns="http://www.w3.org/2000/svg" class="shirt-svg">
+                    <path d="M75 40 L30 80 L60 110 L60 300 L240 300 L240 110 L270 80 L225 40 L195 20 C185 50 115 50 105 20 Z" fill="#111" stroke="none"/>
+                    <text x="150" y="180" text-anchor="middle" font-family="DM Serif Display" font-size="28" fill="white" opacity="0.15">PODTS</text>
+                </svg>
+                <div class="shirt-glow"></div>
+            </div>
+            <div class="floating-tags">
+                <span class="ftag" style="--d:0s">AI Print</span>
+                <span class="ftag" style="--d:0.3s">Custom Size</span>
+                <span class="ftag" style="--d:0.6s">6 Colors</span>
+                <span class="ftag" style="--d:0.9s">Fast Ship</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features">
+        <div class="features-grid">
+            <div class="feat-card">
+                <div class="feat-icon">✦</div>
+                <h3>AI Image Generator</h3>
+                <p>Type a prompt and watch it become wearable art. Powered by Claude's vision model.</p>
+            </div>
+            <div class="feat-card">
+                <div class="feat-icon">◈</div>
+                <h3>Upload Your Own</h3>
+                <p>Have existing art or a logo? Upload it directly and place it on any garment.</p>
+            </div>
+            <div class="feat-card">
+                <div class="feat-icon">◉</div>
+                <h3>Multiple Garments</h3>
+                <p>T-Shirts, Hoodies, Polos, Oversized Tees — your design, any cut.</p>
+            </div>
+            <div class="feat-card">
+                <div class="feat-icon">⬡</div>
+                <h3>True Colors</h3>
+                <p>Pick from 6 garment colors. What you see on screen is what you get.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee-wrap">
+        <div class="marquee-track">
+            <span>Print On Demand</span><span>·</span>
+            <span>T-Shirts</span><span>·</span>
+            <span>Hoodies</span><span>·</span>
+            <span>Oversized</span><span>·</span>
+            <span>Polo Shirts</span><span>·</span>
+            <span>AI Generated</span><span>·</span>
+            <span>Custom Upload</span><span>·</span>
+            <span>Print On Demand</span><span>·</span>
+            <span>T-Shirts</span><span>·</span>
+            <span>Hoodies</span><span>·</span>
+            <span>Oversized</span><span>·</span>
+            <span>Polo Shirts</span><span>·</span>
+            <span>AI Generated</span><span>·</span>
+            <span>Custom Upload</span><span>·</span>
+        </div>
+    </div>
+
+    <!-- STEPS -->
+    <section class="steps">
+        <div class="steps-header">
+            <h2>How It Works</h2>
+            <p>Three steps to your perfect custom garment.</p>
+        </div>
+        <div class="steps-grid">
+            <div class="step">
+                <div class="step-num">01</div>
+                <h3>Choose a Garment</h3>
+                <p>Pick from our catalog — T-shirts, hoodies, polos, oversized. Choose your size and color.</p>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step">
+                <div class="step-num">02</div>
+                <h3>Design Your Print</h3>
+                <p>Use our AI generator or upload your own image. Position it exactly where you want.</p>
+            </div>
+            <div class="step-arrow">→</div>
+            <div class="step">
+                <div class="step-num">03</div>
+                <h3>Order & Receive</h3>
+                <p>Place your order. We print and ship in 3–5 business days, straight to your door.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER BANNER -->
+    <section class="home-cta-band">
+        <h2>Ready to create something extraordinary?</h2>
+        <button class="btn-primary large" onclick="showPage('designer')">Open the Designer →</button>
+    </section>
+
+</div>
+
+<!-- CATALOG PAGE -->
+<div id="page-catalog" class="page">
+    <div class="page-header">
+        <h1>Catalog</h1>
+        <p>Premium blanks, ready for your design.</p>
+    </div>
+    <div class="catalog-filters">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="mens">Men's T-Shirts</button>
+        <button class="filter-btn" data-filter="womens">Women's T-Shirts</button>
+        <button class="filter-btn" data-filter="hoodies">Hoodies</button>
+        <button class="filter-btn" data-filter="polo">Polo Shirts</button>
+        <button class="filter-btn" data-filter="oversized">Oversized</button>
+    </div>
+    <div class="product-grid" id="product-grid"></div>
+</div>
+
+<!-- DESIGNER PAGE -->
+<div id="page-designer" class="page">
+    <div class="page-header">
+        <h1>Designer Studio</h1>
+        <p>Create your perfect custom print.</p>
+    </div>
+    <div class="designer-layout">
+
+        <!-- LEFT: Controls -->
+        <div class="designer-controls">
+
+            <div class="control-section">
+                <h3 class="section-label">01 — Garment</h3>
+                <div class="garment-select" id="garment-select"></div>
+            </div>
+
+            <div class="control-section">
+                <h3 class="section-label">02 — Color</h3>
+                <div class="color-swatches" id="color-swatches"></div>
+            </div>
+
+            <div class="control-section">
+                <h3 class="section-label">03 — Size</h3>
+                <div class="size-pills" id="size-pills">
+                    <button class="size-pill" data-size="XS">XS</button>
+                    <button class="size-pill" data-size="S">S</button>
+                    <button class="size-pill active" data-size="M">M</button>
+                    <button class="size-pill" data-size="L">L</button>
+                    <button class="size-pill" data-size="XL">XL</button>
+                    <button class="size-pill" data-size="XXL">XXL</button>
+                </div>
+            </div>
+
+            <div class="control-section">
+                <h3 class="section-label">04 — Print Design</h3>
+                <div class="print-tabs">
+                    <button class="print-tab active" data-tab="ai" onclick="switchPrintTab('ai')">AI Generate</button>
+                    <button class="print-tab" data-tab="upload" onclick="switchPrintTab('upload')">Upload Image</button>
+                </div>
+
+                <div id="tab-ai" class="tab-panel active">
+                    <textarea id="ai-prompt" placeholder="Describe your print design...&#10;e.g. a dragon made of neon circuits, cyberpunk style" rows="4"></textarea>
+                    <button class="btn-primary full" id="generate-btn" onclick="generateAIImage()">
+                        <span id="gen-btn-text">✦ Generate Print</span>
+                    </button>
+                </div>
+
+                <div id="tab-upload" class="tab-panel">
+                    <div class="upload-zone" id="upload-zone" onclick="document.getElementById('file-input').click()">
+                        <div class="upload-icon">↑</div>
+                        <p>Click or drag an image here</p>
+                        <span>PNG, JPG, SVG — max 5MB</span>
+                    </div>
+                    <input type="file" id="file-input" accept="image/*" style="display:none" onchange="handleFileUpload(event)" />
+                </div>
+            </div>
+
+            <div class="control-section" id="print-preview-section" style="display:none">
+                <h3 class="section-label">05 — Generated Print</h3>
+                <div class="print-preview-box">
+                    <img id="print-preview-img" src="" alt="Generated print" />
+                    <button class="remove-print-btn" onclick="removePrint()">✕ Remove</button>
+                </div>
+            </div>
+
+            <div class="control-section">
+                <div class="price-row">
+                    <span class="price-label">Total</span>
+                    <span class="price-val" id="designer-price">₹ 799</span>
+                </div>
+                <button class="btn-primary full" onclick="addDesignToCart()">Add to Cart →</button>
+            </div>
+
+        </div>
+
+        <!-- RIGHT: Mockup Preview -->
+        <div class="designer-preview">
+            <div class="mockup-wrapper">
+                <div class="mockup-shirt" id="mockup-shirt">
+                    <svg id="shirt-svg" viewBox="0 0 300 340" xmlns="http://www.w3.org/2000/svg">
+                        <path id="shirt-body" d="M75 40 L30 80 L60 110 L60 300 L240 300 L240 110 L270 80 L225 40 L195 20 C185 50 115 50 105 20 Z" fill="#111" stroke="none"/>
+                        <path d="M105 20 C115 50 185 50 195 20" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
+                    </svg>
+                    <!-- print rendered inside SVG via clipPath -->
+                </div>
+                <div class="mockup-label">
+                    <span id="mockup-label-text">Classic Tee — White — M</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!-- CART PAGE -->
+<div id="page-cart" class="page">
+    <div class="page-header">
+        <h1>Your Cart</h1>
+        <p>Review your items before checkout.</p>
+    </div>
+    <div class="cart-layout">
+        <div class="cart-items" id="cart-items">
+            <div class="cart-empty" id="cart-empty">
+                <div class="empty-icon">◻</div>
+                <p>Your cart is empty.</p>
+                <button class="btn-secondary" onclick="showPage('catalog')">Browse Catalog</button>
+            </div>
+        </div>
+        <div class="cart-summary" id="cart-summary" style="display:none">
+            <h2>Order Summary</h2>
+            <div class="summary-rows" id="summary-rows"></div>
+            <div class="summary-divider"></div>
+            <div class="summary-total">
+                <span>Total</span>
+                <span id="summary-total-price">₹ 0</span>
+            </div>
+            <div class="checkout-form">
+                <h3>Delivery Details</h3>
+                <input type="text" placeholder="Full Name" class="form-input" id="f-name" />
+                <input type="text" placeholder="Email Address" class="form-input" id="f-email" />
+                <input type="text" placeholder="Phone Number" class="form-input" id="f-phone" />
+                <input type="text" placeholder="Address Line 1" class="form-input" id="f-addr1" />
+                <input type="text" placeholder="City, State, PIN" class="form-input" id="f-addr2" />
+                <h3 style="margin-top:1.5rem">Payment</h3>
+                <input type="text" placeholder="Card Number" class="form-input" id="f-card" maxlength="19" oninput="formatCard(this)" />
+                <div class="form-row">
+                    <input type="text" placeholder="MM / YY" class="form-input" id="f-expiry" maxlength="7" />
+                    <input type="text" placeholder="CVV" class="form-input" id="f-cvv" maxlength="3" />
+                </div>
+                <button class="btn-primary full" onclick="placeOrder()" style="margin-top:1rem">Place Order →</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ABOUT PAGE -->
+<div id="page-about" class="page">
+    <section class="about-hero">
+        <div class="about-hero-content">
+            <div class="hero-tag">Our Story</div>
+            <h1>We believe clothing<br/>should be<em> personal.</em></h1>
+            <p>PODTS was born from a simple frustration — why wear someone else's idea? We built a platform where your imagination becomes wearable reality, powered by AI and premium printing.</p>
+        </div>
+        <div class="about-stat-row">
+            <div class="about-stat"><span class="stat-num">500+</span><span class="stat-label">Designs Printed</span></div>
+            <div class="about-stat"><span class="stat-num">3–5</span><span class="stat-label">Day Delivery</span></div>
+            <div class="about-stat"><span class="stat-num">100%</span><span class="stat-label">Satisfaction</span></div>
+            <div class="about-stat"><span class="stat-num">6</span><span class="stat-label">Garment Colors</span></div>
+        </div>
+    </section>
+
+    <section class="about-values">
+        <div class="value-card">
+            <span class="val-icon">◈</span>
+            <h3>Quality First</h3>
+            <p>Every garment is printed on premium 180 GSM cotton. We don't cut corners on material or ink quality.</p>
+        </div>
+        <div class="value-card">
+            <span class="val-icon">✦</span>
+            <h3>AI-Powered Creativity</h3>
+            <p>Our integrated AI image generator turns your words into print-ready artwork in seconds.</p>
+        </div>
+        <div class="value-card">
+            <span class="val-icon">⬡</span>
+            <h3>Sustainable Printing</h3>
+            <p>We use water-based DTG inks that are eco-friendly and produce vivid, long-lasting colors.</p>
+        </div>
+    </section>
+
+    <section class="contact-section">
+        <div class="contact-header">
+            <h2>Get In Touch</h2>
+            <p>Questions, custom orders, or just want to say hello?</p>
+        </div>
+        <div class="contact-form-wrap">
+            <input type="text" placeholder="Your Name" class="form-input" />
+            <input type="email" placeholder="Email Address" class="form-input" />
+            <select class="form-input">
+                <option value="">Subject</option>
+                <option>Order Enquiry</option>
+                <option>Custom Bulk Order</option>
+                <option>Technical Support</option>
+                <option>Other</option>
+            </select>
+            <textarea class="form-input" placeholder="Your message..." rows="5"></textarea>
+            <button class="btn-primary" onclick="sendContactForm()">Send Message →</button>
+        </div>
+        <div class="contact-info">
+            <div class="cinfo"><span>✉</span> hello@podts.in</div>
+            <div class="cinfo"><span>☎</span> +91 98765 43210</div>
+            <div class="cinfo"><span>◎</span> Bengaluru, Karnataka, India</div>
+        </div>
+    </section>
+</div>
+
+<!-- TRENDS / LOOKBOOK PAGE -->
+<div id="page-trends" class="page">
+    <div class="page-header" style="padding: 3.5rem 6vw 2rem; border-bottom: 1px solid var(--border); margin-bottom: 0;">
+        <div class="page-header-left">
+            <h1>Inspo</h1>
+            <p>What the world is wearing right now.</p>
+        </div>
+        <div>
+            <div class="trends-live-badge">
+                <span class="trends-live-dot"></span>
+                Updated Mar 2025
+            </div>
+        </div>
+    </div>
+
+    <div class="trends-filters" style="padding: 1.5rem 6vw 1.5rem;">
+        <button class="trends-filter-btn active" data-filter="all">All</button>
+        <button class="trends-filter-btn" data-filter="outfit">Outfits</button>
+        <button class="trends-filter-btn" data-filter="palette">Palettes</button>
+        <button class="trends-filter-btn" data-filter="hashtags">Trending Tags</button>
+        <button class="trends-filter-btn" data-filter="editorial">Editorial</button>
+        <span class="trends-updated">Refreshed weekly</span>
+    </div>
+
+    <div class="trends-masonry" id="trends-grid"></div>
+</div>
+
+<!-- ORDER SUCCESS MODAL -->
+<div id="order-modal" class="modal-overlay" style="display:none">
+    <div class="modal-box">
+        <div class="modal-icon">✓</div>
+        <h2>Order Placed!</h2>
+        <p>Thank you for your order. You'll receive a confirmation on your email shortly. Expected delivery: <strong>3–5 business days.</strong></p>
+        <p id="order-id-text" class="order-id"></p>
+        <button class="btn-primary" onclick="closeOrderModal()">Continue Shopping →</button>
+    </div>
+</div>
+
+<script src="js/data.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/designer.js"></script>
+<script src="js/app.js"></script>
+<script src="js/trends.js"></script>
+<script src="js/animations.js"></script>
+</body>
+</html>

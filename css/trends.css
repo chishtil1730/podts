@@ -1,0 +1,524 @@
+/* ============================================================
+   PODTS — trends.css
+   Lookbook page: Pinterest-style columns, glassmorphism, premium
+   ============================================================ */
+
+/* ── PAGE HEADER ─────────────────────────────────────────────── */
+#page-trends .page-header {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    padding-bottom: 2rem;
+}
+
+#page-trends .page-header-left h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.2rem, 4vw, 3.2rem);
+    font-weight: 400;
+    line-height: 1.1;
+}
+#page-trends .page-header-left p {
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+    font-size: 1rem;
+}
+
+/* Live badge */
+.trends-live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    border: 1.5px solid var(--border);
+    border-radius: 100px;
+    padding: 0.35rem 0.85rem;
+    background: var(--surface);
+    margin-top: 1rem;
+}
+.trends-live-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: #22c55e;
+    animation: livePulse 2s ease-in-out infinite;
+    flex-shrink: 0;
+}
+@keyframes livePulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50%     { opacity: 0.5; transform: scale(0.75); }
+}
+
+/* ── FILTER ROW ──────────────────────────────────────────────── */
+.trends-filters {
+    display: flex;
+    gap: 0.5rem;
+    padding: 0 6vw 2rem;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.trends-filter-btn {
+    padding: 0.45rem 1rem;
+    border-radius: 100px;
+    border: 1.5px solid var(--border);
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: var(--surface);
+    transition: var(--trans);
+    cursor: pointer;
+    white-space: nowrap;
+}
+.trends-filter-btn:hover  { border-color: var(--text); color: var(--text); }
+.trends-filter-btn.active { background: var(--text); color: var(--accent-inv); border-color: var(--text); }
+
+/* Updated time */
+.trends-updated {
+    margin-left: auto;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.08em;
+    color: var(--text-faint);
+    text-transform: uppercase;
+}
+
+/* ── PINTEREST COLUMNS GRID ──────────────────────────────────── */
+.trends-masonry {
+    columns: 3;
+    column-gap: 1.25rem;
+    padding: 0 6vw 5rem;
+}
+
+@media (max-width: 1100px) { .trends-masonry { columns: 2; } }
+@media (max-width: 600px)  { .trends-masonry { columns: 1; padding: 0 4vw 4rem; } }
+
+/* ── TREND CARD ──────────────────────────────────────────────── */
+.trend-card {
+    break-inside: avoid;
+    margin-bottom: 1.25rem;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+    cursor: pointer;
+    position: relative;
+    transition:
+            transform  0.28s cubic-bezier(0.4,0,0.2,1),
+            box-shadow 0.28s ease,
+            border-color 0.28s ease;
+
+    /* card reveal animation — staggered via --ci */
+    opacity: 0;
+    transform: translateY(16px);
+    animation: trendCardIn 0.45s cubic-bezier(0.22,1,0.36,1) forwards;
+    animation-delay: calc(var(--ci, 0) * 70ms);
+}
+@keyframes trendCardIn {
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.trend-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--text-faint);
+}
+
+/* ── CARD IMAGE AREA ─────────────────────────────────────────── */
+.trend-card-img {
+    width: 100%;
+    display: block;
+    position: relative;
+    overflow: hidden;
+    background: var(--surface2);
+}
+.trend-card-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.5s cubic-bezier(0.4,0,0.2,1);
+}
+.trend-card:hover .trend-card-img img {
+    transform: scale(1.04);
+}
+
+/* Glassmorphism overlay on image bottom */
+.trend-card-img-glass {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    padding: 1.5rem 1rem 0.85rem;
+    background: linear-gradient(
+            to top,
+            rgba(0,0,0,0.52) 0%,
+            rgba(0,0,0,0.18) 60%,
+            transparent 100%
+    );
+    backdrop-filter: blur(0px);
+    -webkit-backdrop-filter: blur(0px);
+    display: flex;
+    align-items: flex-end;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    transition: backdrop-filter 0.3s ease;
+}
+.trend-card:hover .trend-card-img-glass {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+/* Hashtag chips on image */
+.trend-hashtag {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.08em;
+    color: rgba(255,255,255,0.9);
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 100px;
+    padding: 0.2rem 0.55rem;
+    white-space: nowrap;
+}
+
+/* ── CARD BODY ───────────────────────────────────────────────── */
+.trend-card-body {
+    padding: 1.1rem 1.25rem 1.3rem;
+}
+
+.trend-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin-bottom: 0.6rem;
+}
+
+.trend-card-category {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+}
+
+.trend-card-dot {
+    width: 3px; height: 3px;
+    border-radius: 50%;
+    background: var(--text-faint);
+    flex-shrink: 0;
+}
+
+.trend-card-date {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--text-faint);
+    letter-spacing: 0.06em;
+}
+
+.trend-card-title {
+    font-family: var(--font-display);
+    font-size: 1.05rem;
+    font-weight: 400;
+    line-height: 1.3;
+    margin-bottom: 0.55rem;
+    color: var(--text);
+}
+
+.trend-card-summary {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+/* Color palette row */
+.trend-palette {
+    display: flex;
+    gap: 0.4rem;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+.trend-palette-swatch {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    border: 1.5px solid rgba(0,0,0,0.1);
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+    cursor: default;
+}
+.trend-palette-swatch:hover { transform: scale(1.2); }
+.trend-palette-label {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    color: var(--text-faint);
+    letter-spacing: 0.06em;
+    margin-left: 0.2rem;
+}
+
+/* Card footer */
+.trend-card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 0.75rem;
+    border-top: 1px solid var(--border);
+}
+
+.trend-card-source {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+}
+.trend-source-avatar {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.6rem;
+    color: var(--text-faint);
+    flex-shrink: 0;
+    overflow: hidden;
+}
+.trend-source-avatar img {
+    width: 100%; height: 100%; object-fit: cover;
+}
+
+.trend-card-likes {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-faint);
+}
+
+/* Design It glass button — appears on hover */
+.trend-card-cta {
+    position: absolute;
+    top: 0.85rem;
+    right: 0.85rem;
+    background: rgba(255,255,255,0.18);
+    backdrop-filter: blur(12px) saturate(1.4);
+    -webkit-backdrop-filter: blur(12px) saturate(1.4);
+    border: 1px solid rgba(255,255,255,0.28);
+    color: #fff;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 0.35rem 0.75rem;
+    border-radius: 100px;
+    letter-spacing: 0.04em;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition:
+            opacity   0.22s ease,
+            transform 0.22s cubic-bezier(0.4,0,0.2,1);
+    pointer-events: none;
+    white-space: nowrap;
+}
+.trend-card:hover .trend-card-cta {
+    opacity: 1;
+    transform: translateY(0);
+    pointer-events: all;
+}
+
+/* Cards without images */
+.trend-card.no-image .trend-card-body {
+    padding-top: 1.5rem;
+}
+.trend-card.text-only {
+    background: var(--surface);
+}
+.trend-card.text-only .trend-card-title {
+    font-size: 1.2rem;
+}
+
+/* Quote card variant */
+.trend-quote-card {
+    break-inside: avoid;
+    margin-bottom: 1.25rem;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1.5px solid var(--border);
+    background: var(--text);
+    color: var(--accent-inv);
+    padding: 2rem 1.75rem;
+    position: relative;
+
+    opacity: 0;
+    transform: translateY(16px);
+    animation: trendCardIn 0.45s cubic-bezier(0.22,1,0.36,1) forwards;
+    animation-delay: calc(var(--ci, 0) * 70ms);
+}
+.trend-quote-mark {
+    font-family: var(--font-display);
+    font-size: 5rem;
+    line-height: 0.7;
+    opacity: 0.12;
+    position: absolute;
+    top: 1rem; left: 1.25rem;
+}
+.trend-quote-text {
+    font-family: var(--font-display);
+    font-size: 1.15rem;
+    font-weight: 400;
+    line-height: 1.5;
+    font-style: italic;
+    position: relative;
+    z-index: 1;
+    margin-bottom: 1.25rem;
+}
+.trend-quote-author {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    opacity: 0.5;
+}
+
+/* Palette feature card */
+.trend-palette-card {
+    break-inside: avoid;
+    margin-bottom: 1.25rem;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+    padding: 1.5rem 1.25rem;
+
+    opacity: 0;
+    transform: translateY(16px);
+    animation: trendCardIn 0.45s cubic-bezier(0.22,1,0.36,1) forwards;
+    animation-delay: calc(var(--ci, 0) * 70ms);
+    transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+}
+.trend-palette-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--text-faint);
+}
+.trend-palette-card-title {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 0.3rem;
+}
+.trend-palette-card-sub {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 1rem;
+}
+.trend-palette-strip {
+    display: flex;
+    border-radius: var(--radius);
+    overflow: hidden;
+    height: 52px;
+    margin-bottom: 0.9rem;
+}
+.trend-palette-strip-swatch {
+    flex: 1;
+    transition: flex 0.3s ease;
+}
+.trend-palette-strip:hover .trend-palette-strip-swatch:hover {
+    flex: 1.6;
+}
+.trend-palette-codes {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+}
+.trend-palette-code {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    color: var(--text-faint);
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 0.18rem 0.45rem;
+    letter-spacing: 0.05em;
+}
+
+/* Hashtag cloud card */
+.trend-hashtag-card {
+    break-inside: avoid;
+    margin-bottom: 1.25rem;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+    padding: 1.5rem 1.25rem;
+
+    opacity: 0;
+    transform: translateY(16px);
+    animation: trendCardIn 0.45s cubic-bezier(0.22,1,0.36,1) forwards;
+    animation-delay: calc(var(--ci, 0) * 70ms);
+    transition: transform 0.28s ease, box-shadow 0.28s ease;
+}
+.trend-hashtag-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+.trend-hashtag-card-title {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    font-weight: 400;
+    margin-bottom: 0.75rem;
+}
+.trend-hashtag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.45rem;
+}
+.trend-hashtag-chip {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    background: var(--surface2);
+    border: 1.5px solid var(--border);
+    border-radius: 100px;
+    padding: 0.3rem 0.75rem;
+    transition: var(--trans);
+    cursor: default;
+}
+.trend-hashtag-chip:hover {
+    background: var(--text);
+    color: var(--accent-inv);
+    border-color: var(--text);
+}
+.trend-hashtag-chip.large  { font-size: 0.82rem; padding: 0.38rem 0.9rem; }
+.trend-hashtag-chip.medium { font-size: 0.75rem; }
+.trend-hashtag-chip.small  { font-size: 0.65rem; opacity: 0.7; }
+
+/* ── DARK MODE ADJUSTMENTS ───────────────────────────────────── */
+[data-theme="dark"] .trend-card,
+[data-theme="dark"] .trend-palette-card,
+[data-theme="dark"] .trend-hashtag-card {
+    background: var(--surface);
+}
+[data-theme="dark"] .trend-quote-card {
+    background: var(--surface2);
+    color: var(--text);
+    border-color: var(--border);
+}
+[data-theme="dark"] .trend-palette-code {
+    background: var(--surface2);
+    border-color: var(--border);
+}
+[data-theme="dark"] .trends-live-badge {
+    background: var(--surface);
+    border-color: var(--border);
+}
+[data-theme="dark"] .trend-hashtag-chip {
+    background: var(--surface2);
+    border-color: var(--border);
+}
