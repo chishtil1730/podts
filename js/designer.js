@@ -165,7 +165,7 @@ async function generateAIImage() {
     btn.classList.add('loading');
     btnText.textContent = 'Generating…';
 
-    const OPENROUTER_API_KEY = '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';
+    const OPENROUTER_API_KEY = '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';
 
     try {
         const response = await fetch('https://openrouter.ai/api/v1/chat/completions', {
