@@ -22,7 +22,6 @@
 
 /* ── 2. THEME TRANSITION — smooth color changeover ─────────── */
 body,
-#navbar,
 .page,
 .modal-box,
 .modal-overlay,
@@ -114,23 +113,10 @@ body,
     to   { opacity: 0; transform: translateX(-14px); }
 }
 
-/* ── 5. NAV ACTIVE INDICATOR PILL ───────────────────────────── */
-.nav-links {
-    position: relative;
-}
-.nav-indicator {
-    position: absolute;
-    background: var(--surface2);
-    border-radius: 100px;
-    pointer-events: none;
-    transition: left 0.3s cubic-bezier(0.4,0,0.2,1),
-    width 0.3s cubic-bezier(0.4,0,0.2,1),
-    top 0.3s ease,
-    height 0.3s ease;
-    z-index: 0;
-}
-.nav-links a { position: relative; z-index: 1; }
-.nav-links a.active { background: transparent; }
+/* ── 5. NAV ACTIVE INDICATOR — removed, handled by nav.css ──── */
+/* .nav-indicator removed: was appending a child div to .nav-links
+   which corrupted getBoundingClientRect() width measurements used
+   by the pill centering calculation in app.js */
 
 /* ── 6. LOGO DOT PULSE ──────────────────────────────────────── */
 .logo-dot {
@@ -298,7 +284,7 @@ body,
     80%  { transform: scale(0.98) rotate(1deg); }
     100% { transform: scale(1) rotate(0deg); }
 }
-.cart-btn.bouncing {
+#cart-btn-fixed.bouncing, .cart-btn.bouncing {
     animation: cartBounce 0.55s cubic-bezier(0.4,0,0.2,1);
 }
 
@@ -479,7 +465,7 @@ body.cursor-out .podts-cursor-ring {
     font-family: var(--font-mono);
     font-size: 2rem;
     font-weight: 700;
-    letter-spacing: 0.18em;
+    letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--text);
     position: fixed;            /* stays fixed so we can FLIP it to nav */
@@ -546,9 +532,7 @@ body.cursor-out .podts-cursor-ring {
     background: var(--bg);
     border-color: var(--border);
 }
-[data-theme="dark"] #navbar.scrolled {
-    background: rgba(15,17,23,0.80);
-}
+/* [data-theme="dark"] #navbar.scrolled — handled entirely in nav.css */
 [data-theme="dark"] .marquee-wrap {
     background: var(--surface2);
 }

@@ -248,7 +248,6 @@ function _activatePage(name) {
     document.querySelectorAll('.nav-links a').forEach(a => {
         a.classList.toggle('active', a.dataset.page === name);
     });
-    moveNavIndicator();
 
     // page-specific init
     if (name === 'catalog') renderCatalog();
@@ -261,28 +260,6 @@ function _activatePage(name) {
 }
 
 /* ── NAV SLIDING INDICATOR ───────────────────────────────────── */
-function buildNavIndicator() {
-    const navLinks = document.querySelector('.nav-links');
-    if (!navLinks) return;
-    const indicator = document.createElement('div');
-    indicator.className = 'nav-indicator';
-    navLinks.appendChild(indicator);
-}
-
-function moveNavIndicator() {
-    const activeLink = document.querySelector('.nav-links a.active');
-    const indicator  = document.querySelector('.nav-indicator');
-    if (!activeLink || !indicator) return;
-
-    const navLinks = document.querySelector('.nav-links');
-    const navRect  = navLinks.getBoundingClientRect();
-    const linkRect = activeLink.getBoundingClientRect();
-
-    indicator.style.left   = (linkRect.left - navRect.left) + 'px';
-    indicator.style.top    = (linkRect.top  - navRect.top)  + 'px';
-    indicator.style.width  = linkRect.width  + 'px';
-    indicator.style.height = linkRect.height + 'px';
-}
 
 /* ── SCROLL REVEAL ───────────────────────────────────────────── */
 function initScrollReveal() {
@@ -395,7 +372,7 @@ function animatePrintAppear() {
 /* ── CART ICON BOUNCE + COUNT POP ───────────────────────────── */
 function animateCartAdd(addBtnEl) {
     // Bounce the cart icon
-    const cartBtn = document.querySelector('.cart-btn');
+    const cartBtn = document.getElementById('cart-btn-fixed') || document.querySelector('.cart-btn');
     if (cartBtn) {
         cartBtn.classList.remove('bouncing');
         void cartBtn.offsetWidth;
@@ -508,14 +485,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initCursor();
     buildThemeToggle();
-    buildNavIndicator();
     initScrollReveal();
 
     // Init size pill ripples (and re-init after designer loads)
     initSizePillRipples();
 
-    // Initial nav indicator position after first showPage
-    setTimeout(moveNavIndicator, 60);
 
     // Re-init filter pill indicator after catalog renders
     const origRenderCatalog = window.renderCatalog;

@@ -1,133 +1,383 @@
+/* ═══════════════════════════════════════════════════════════════
+   PODTS — nav.css   v4 — morphing pill navbar
+
+   Idle (top of page):
+     Full-width bar, logo left, links center-right, cart right.
+
+   Scrolled:
+     Logo fades + slides left → disappears.
+     Bar shrinks from both edges inward, border-radius grows to 999px.
+     Result: a centered pill containing only the nav links.
+     Cart button stays fixed top-right, independent of the pill.
+     Pill has liquid-glass backdrop-filter (no parent filter — safe).
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ── CSS CUSTOM PROPS for morph ──────────────────────────────── */
+:root {
+    --pill-top:    10px;
+    --pill-h:      46px;
+}
+
+/* ── NAVBAR BASE ─────────────────────────────────────────────── */
 #navbar {
-  position: fixed;
-  top: 0; left: 0; right: 0;
-  height: var(--nav-h);
-  z-index: 100;
-  background: var(--bg);
-  border-bottom: 1px solid var(--border);
-  transition: background 0.3s ease, backdrop-filter 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    position: fixed;
+    top: 0;
+    /* morph: left/right animate inward */
+    left: 0;
+    right: 0;
+    height: var(--nav-h);
+    z-index: 100;
+    background: var(--bg);
+    border-bottom: 1px solid var(--border);
+
+    /* All properties that morph */
+    /* Subtle spring on shape only — overshoot is 1.18 (barely perceptible).
+       height/top use plain ease so content never gets clipped mid-bounce. */
+    transition:
+            left            0.55s cubic-bezier(0.34, 1.30, 0.64, 1),
+            right           0.55s cubic-bezier(0.34, 1.30, 0.64, 1),
+            top             0.5s  cubic-bezier(0.4,  0,    0.2,  1),
+            height          0.5s  cubic-bezier(0.4,  0,    0.2,  1),
+            border-radius   0.55s cubic-bezier(0.34, 1.18, 0.64, 1),
+            background      0.45s ease,
+            border-color    0.45s ease,
+            box-shadow      0.5s  ease,
+            backdrop-filter 0.45s ease;
 }
 
+/* ── SCROLLED = PILL ─────────────────────────────────────────── */
 #navbar.scrolled {
-  background: rgba(249, 248, 246, 0.58);
-  backdrop-filter: blur(15px) saturate(1.8);
-  -webkit-backdrop-filter: blur(18px) saturate(1.8);
-  border-color: rgba(232,230,224,0.5);
-  box-shadow: 0 1px 24px rgba(0,0,0,0.06);
+    /* Edges morph inward — JS sets exact pixel values for perfect centering */
+    top:    var(--pill-top);
+    height: var(--pill-h);
+    border-radius: 999px;
+    border-color: transparent;
+
+    /* Liquid glass */
+    background: rgba(255, 255, 255, 0.28);
+    backdrop-filter:         blur(20px) saturate(2.0) brightness(1.06);
+    -webkit-backdrop-filter: blur(20px) saturate(2.0) brightness(1.06);
+    box-shadow:
+            0 2px 32px rgba(0, 0, 0, 0.10),
+            inset 0 1px 0   rgba(255, 255, 255, 0.90),   /* top specular */
+            inset 0 -1px 0  rgba(0,   0,   0,   0.08),   /* bottom shadow */
+            inset 1px 0 0   rgba(255, 255, 255, 0.55),   /* left lens */
+            inset -1px 0 0  rgba(255, 255, 255, 0.55);   /* right lens */
 }
 
+[data-theme="dark"] #navbar.scrolled {
+    background: rgba(15, 17, 23, 0.52);
+    backdrop-filter:         blur(22px) saturate(1.7) brightness(0.88);
+    -webkit-backdrop-filter: blur(22px) saturate(1.7) brightness(0.88);
+    box-shadow:
+            0 2px 32px rgba(0, 0, 0, 0.35),
+            inset 0 1px 0   rgba(255, 255, 255, 0.28),
+            inset 0 -1px 0  rgba(0,   0,   0,   0.30),
+            inset 1px 0 0   rgba(255, 255, 255, 0.12),
+            inset -1px 0 0  rgba(255, 255, 255, 0.12);
+}
+
+/* ── NAV INNER ───────────────────────────────────────────────── */
 .nav-inner {
-  display: flex;
-  align-items: center;
-  height: 100%;
-  padding: 0 6vw;
-  gap: 2rem;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 0 1.2rem;   /* reduced padding since pill is narrow */
+    gap: 0;
+    position: relative;
+    overflow: visible;    /* no clipping — logo hides via opacity/visibility */
+    justify-content: center;
 }
 
+/* ── LOGO — slides left and fades out on scroll ──────────────── */
 .nav-logo {
-  font-family: var(--font-mono);
-  font-size: 1rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  margin-right: auto;
-  flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    flex-shrink: 0;
+    white-space: nowrap;
+
+    /* Positioned absolutely so it can exit without pushing links */
+    position: absolute;
+    left: 6vw;
+
+    /* No transition — logo vanishes instantly to sell the morph */
+    transition: none;
+}
+
+#navbar.scrolled .nav-logo {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
 }
 
 .logo-dot {
-  width: 8px; height: 8px;
-  background: var(--text);
-  border-radius: 50%;
-  display: inline-block;
-  flex-shrink: 0;
+    width: 8px; height: 8px;
+    background: var(--text);
+    border-radius: 50%;
+    display: inline-block;
+    flex-shrink: 0;
 }
 
+/* ── NAV LINKS — center themselves in pill ───────────────────── */
 .nav-links {
-  display: flex;
-  gap: 0.25rem;
+    display: flex;
+    gap: 0.1rem;
+    align-items: center;
+    /* When not scrolled, pushed right by logo's absolute position */
+    margin-left: auto;
+    margin-right: auto;
+    transition: gap 0.4s ease;
+}
+
+#navbar.scrolled .nav-links {
+    gap: 0.05rem;
 }
 
 .nav-links a {
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: var(--text-muted);
-  padding: 0.45rem 0.9rem;
-  border-radius: 100px;
-  transition: var(--trans);
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    padding: 0.42rem 0.85rem;
+    border-radius: 100px;
+    transition:
+            color       var(--trans),
+            background  var(--trans),
+            padding     0.4s ease,
+            font-size   0.4s ease;
+    white-space: nowrap;
+}
+
+#navbar.scrolled .nav-links a {
+    font-size: 0.83rem;
+    padding: 0.35rem 0.78rem;
 }
 
 .nav-links a:hover,
 .nav-links a.active {
-  color: var(--text);
-  background: var(--surface2);
+    color: var(--text);
+    background: rgba(0, 0, 0, 0.07);
 }
 
-.cart-btn {
-  position: relative;
-  width: 42px; height: 42px;
-  display: flex; align-items: center; justify-content: center;
-  border-radius: 50%;
-  border: 1.5px solid var(--border);
-  transition: var(--trans);
-  flex-shrink: 0;
+[data-theme="dark"] .nav-links a:hover,
+[data-theme="dark"] .nav-links a.active {
+    background: rgba(255, 255, 255, 0.10);
 }
-.cart-btn:hover { background: var(--surface2); border-color: var(--text); }
+
+/* ── CART BUTTON — fixed top-right, NEVER moves ─────────────── */
+/* Pulled OUT of the navbar flow. Sits independently fixed. */
+#cart-btn-fixed {
+    position: fixed;
+    top: calc((var(--nav-h) - 42px) / 2);
+    right: 6vw;
+    width: 42px; height: 42px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    border: 1.5px solid var(--border);
+    background: var(--bg);
+    z-index: 110;    /* above pill */
+    transition:
+            background    var(--trans),
+            border-color  var(--trans),
+            top           0.5s cubic-bezier(0.34, 1.46, 0.64, 1);
+    cursor: pointer;
+    flex-shrink: 0;
+}
+#cart-btn-fixed:hover { background: var(--surface2); border-color: var(--text); }
+
+/* Subtly shift cart down to stay centered when pill is smaller */
+#navbar.scrolled ~ #cart-btn-fixed,
+body.navbar-scrolled #cart-btn-fixed {
+    top: calc(var(--pill-top) + (var(--pill-h) - 42px) / 2);
+}
 
 .cart-count {
-  position: absolute;
-  top: -4px; right: -4px;
-  width: 18px; height: 18px;
-  background: var(--text);
-  color: var(--accent-inv);
-  border-radius: 50%;
-  font-size: 0.65rem;
-  font-weight: 700;
-  display: flex; align-items: center; justify-content: center;
-  line-height: 1;
-  opacity: 0;
-  transform: scale(0);
-  transition: var(--trans);
+    position: absolute;
+    top: -4px; right: -4px;
+    width: 18px; height: 18px;
+    background: var(--text);
+    color: var(--accent-inv);
+    border-radius: 50%;
+    font-size: 0.65rem;
+    font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+    line-height: 1;
+    opacity: 0;
+    transform: scale(0);
+    transition: var(--trans);
 }
 .cart-count.visible { opacity: 1; transform: scale(1); }
 
+/* ── HAMBURGER (mobile) ──────────────────────────────────────── */
 .hamburger {
-  display: none;
-  flex-direction: column;
-  gap: 5px;
-  width: 32px;
-  padding: 4px;
-}
-.hamburger span {
-  display: block;
-  width: 100%;
-  height: 1.5px;
-  background: var(--text);
-  border-radius: 2px;
-  transition: var(--trans);
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    width: 32px;
+    padding: 4px;
+    /* Unscrolled: sits in normal flow, next to cart at right */
+    position: relative;
+    left: auto;
+    right: auto;
+    margin-left: 0.5rem;
+    transition:
+            position 0s,
+            left 0.45s cubic-bezier(0.4, 0, 0.2, 1),
+            top  0.45s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+.hamburger span {
+    display: block;
+    width: 100%; height: 1.5px;
+    background: var(--text);
+    border-radius: 2px;
+    transition: var(--trans);
+}
+
+/* ── MOBILE MENU ─────────────────────────────────────────────── */
 .mobile-menu {
-  display: none;
-  flex-direction: column;
-  background: var(--surface);
-  border-top: 1px solid var(--border);
-  padding: 1rem 6vw;
-  gap: 0.2rem;
+    display: none;
+    flex-direction: column;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 1rem 6vw;
+    gap: 0.2rem;
+    position: fixed;
+    top: var(--nav-h);
+    left: 0; right: 0;
+    z-index: 99;
 }
 .mobile-menu a {
-  padding: 0.75rem 0;
-  border-bottom: 1px solid var(--border);
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: var(--text-muted);
+    padding: 0.75rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-muted);
 }
 .mobile-menu a:last-child { border-bottom: none; }
 .mobile-menu.open { display: flex; }
 
 @media (max-width: 768px) {
-  .nav-links { display: none; }
-  .hamburger { display: flex; }
+    .nav-links { display: none; }
+
+    /* ── UNSCROLLED: logo left, hamburger fixed next to cart ──── */
+    .nav-inner {
+        justify-content: flex-start;
+        padding: 0 6vw;
+        overflow: visible;
+    }
+
+    /* Logo stays left in normal flow */
+    .nav-logo {
+        position: relative !important;
+        left: auto !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto !important;
+    }
+
+    /* Hamburger: fixed, vertically centred, LEFT of the cart.
+       Cart is at right:6vw (42px wide), so hamburger right edge
+       starts at 6vw + 42px + 10px gap from viewport right.    */
+    .hamburger {
+        display: flex;
+        position: fixed !important;
+        top: calc((var(--nav-h) - 32px) / 2) !important;
+        right: calc(6vw + 52px) !important;
+        left: auto !important;
+        margin-left: 0 !important;
+        z-index: 110 !important;
+    }
+
+    /* ── SCROLLED: glass bar, logo hidden, hamburger moves left ─ */
+    #navbar.scrolled {
+        left: 0 !important;
+        right: 0 !important;
+        border-radius: 0 !important;
+        top: 0 !important;
+        height: var(--nav-h) !important;
+    }
+    #navbar.scrolled .nav-logo {
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
+    #navbar.scrolled .hamburger {
+        right: auto !important;
+        left: 6vw !important;
+        top: calc((var(--nav-h) - 32px) / 2) !important;
+    }
+    #navbar.scrolled::before,
+    #navbar.scrolled::after {
+        display: none;
+    }
 }
+
+/* ── PILL EDGE LENS OVERLAYS (CSS-only, no canvas needed) ────── */
+/* These are pseudo-elements on the navbar itself — safe because  */
+/* navbar has backdrop-filter and these are children of it.        */
+/* They add the visible lens-edge brightness at pill ends.         */
+#navbar.scrolled::before,
+#navbar.scrolled::after {
+    content: '';
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 52px;
+    pointer-events: none;
+    z-index: 0;
+    transition: opacity 0.4s ease;
+}
+
+/* Left lens glow */
+#navbar.scrolled::before {
+    left: 0;
+    border-radius: 999px 0 0 999px;
+    background: linear-gradient(
+            90deg,
+            rgba(255,255,255,0.50) 0%,
+            rgba(255,255,255,0.14) 38%,
+            rgba(255,255,255,0.02) 70%,
+            transparent 100%
+    );
+    mask-image: linear-gradient(180deg,
+    transparent 0%, black 16%, black 84%, transparent 100%);
+    -webkit-mask-image: linear-gradient(180deg,
+    transparent 0%, black 16%, black 84%, transparent 100%);
+}
+
+/* Right lens glow */
+#navbar.scrolled::after {
+    right: 0;
+    border-radius: 0 999px 999px 0;
+    background: linear-gradient(
+            270deg,
+            rgba(255,255,255,0.50) 0%,
+            rgba(255,255,255,0.14) 38%,
+            rgba(255,255,255,0.02) 70%,
+            transparent 100%
+    );
+    mask-image: linear-gradient(180deg,
+    transparent 0%, black 16%, black 84%, transparent 100%);
+    -webkit-mask-image: linear-gradient(180deg,
+    transparent 0%, black 16%, black 84%, transparent 100%);
+}
+
+[data-theme="dark"] #navbar.scrolled::before {
+    background: linear-gradient(90deg,
+    rgba(255,255,255,0.16) 0%,
+    rgba(255,255,255,0.05) 40%,
+    transparent 100%);
+}
+[data-theme="dark"] #navbar.scrolled::after {
+    background: linear-gradient(270deg,
+    rgba(255,255,255,0.16) 0%,
+    rgba(255,255,255,0.05) 40%,
+    transparent 100%);
+}
+
+/* Nav links above pseudo-elements */
+.nav-links { position: relative; z-index: 2; }
