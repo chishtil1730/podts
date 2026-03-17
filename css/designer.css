@@ -1,46 +1,46 @@
 .designer-layout {
-  display: grid;
-  grid-template-columns: 380px 1fr;
-  gap: 2rem;
-  padding: 0 6vw 4rem;
-  align-items: start;
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 2rem;
+    padding: 0 6vw 4rem;
+    align-items: start;
 }
 
 /* CONTROLS */
 .designer-controls {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  background: var(--surface);
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
 }
 
 .control-section {
-  padding: 1.5rem;
-  border-bottom: 1px solid var(--border);
+    padding: 1.5rem;
+    border-bottom: 1px solid var(--border);
 }
 .control-section:last-child { border-bottom: none; }
 
 /* GARMENT SELECT */
 .garment-select {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 0.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem;
 }
 
 .garment-btn {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0.4rem;
-  padding: 0.9rem 0.5rem;
-  border-radius: var(--radius);
-  border: 1.5px solid var(--border);
-  background: transparent;
-  transition: var(--trans);
-  cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.9rem 0.5rem;
+    border-radius: var(--radius);
+    border: 1.5px solid var(--border);
+    background: transparent;
+    transition: var(--trans);
+    cursor: pointer;
 }
 .garment-btn:hover { border-color: var(--text); background: var(--surface2); }
 .garment-btn.active { border-color: var(--text); background: var(--text); }
@@ -49,22 +49,22 @@
 
 .garment-btn-icon { font-size: 1.3rem; }
 .garment-btn-label {
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--text-muted);
-  text-align: center;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    text-align: center;
 }
 
 /* COLOR SWATCHES */
 .color-swatches { display: flex; gap: 0.6rem; flex-wrap: wrap; }
 
 .color-swatch {
-  width: 32px; height: 32px;
-  border-radius: 50%;
-  cursor: pointer;
-  border: 2.5px solid transparent;
-  transition: var(--trans);
-  position: relative;
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2.5px solid transparent;
+    transition: var(--trans);
+    position: relative;
 }
 .color-swatch:hover { transform: scale(1.15); }
 .color-swatch.active { border-color: var(--text); box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--text); }
@@ -73,37 +73,37 @@
 .size-pills { display: flex; gap: 0.5rem; flex-wrap: wrap; }
 
 .size-pill {
-  padding: 0.45rem 0.85rem;
-  border-radius: var(--radius);
-  border: 1.5px solid var(--border);
-  font-size: 0.8rem;
-  font-weight: 600;
-  font-family: var(--font-mono);
-  color: var(--text-muted);
-  transition: var(--trans);
-  background: transparent;
+    padding: 0.45rem 0.85rem;
+    border-radius: var(--radius);
+    border: 1.5px solid var(--border);
+    font-size: 0.8rem;
+    font-weight: 600;
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    transition: var(--trans);
+    background: transparent;
 }
 .size-pill:hover { border-color: var(--text); color: var(--text); }
 .size-pill.active { background: var(--text); color: var(--accent-inv); border-color: var(--text); }
 
 /* PRINT TABS */
 .print-tabs {
-  display: flex;
-  gap: 0;
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius);
-  overflow: hidden;
-  margin-bottom: 1rem;
+    display: flex;
+    gap: 0;
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    overflow: hidden;
+    margin-bottom: 1rem;
 }
 
 .print-tab {
-  flex: 1;
-  padding: 0.55rem;
-  font-size: 0.8rem;
-  font-weight: 500;
-  color: var(--text-muted);
-  transition: var(--trans);
-  text-align: center;
+    flex: 1;
+    padding: 0.55rem;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    transition: var(--trans);
+    text-align: center;
 }
 .print-tab:hover { background: var(--surface2); }
 .print-tab.active { background: var(--text); color: var(--accent-inv); }
@@ -112,182 +112,329 @@
 .tab-panel.active { display: block; }
 
 #ai-prompt {
-  width: 100%;
-  background: var(--surface2);
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius);
-  padding: 0.85rem 1rem;
-  font-size: 0.85rem;
-  color: var(--text);
-  resize: none;
-  margin-bottom: 0.9rem;
-  transition: border-color var(--trans);
-  line-height: 1.55;
+    width: 100%;
+    background: var(--surface2);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius);
+    padding: 0.85rem 1rem;
+    font-size: 0.85rem;
+    color: var(--text);
+    resize: none;
+    margin-bottom: 0.9rem;
+    transition: border-color var(--trans);
+    line-height: 1.55;
 }
 #ai-prompt:focus { outline: none; border-color: var(--text); background: var(--surface); }
 
 /* UPLOAD ZONE */
 .upload-zone {
-  border: 2px dashed var(--border);
-  border-radius: var(--radius);
-  padding: 2rem 1.5rem;
-  text-align: center;
-  cursor: pointer;
-  transition: var(--trans);
+    border: 2px dashed var(--border);
+    border-radius: var(--radius);
+    padding: 2rem 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--trans);
 }
 .upload-zone:hover { border-color: var(--text); background: var(--surface2); }
 
 .upload-icon {
-  font-size: 2rem;
-  color: var(--text-faint);
-  margin-bottom: 0.5rem;
+    font-size: 2rem;
+    color: var(--text-faint);
+    margin-bottom: 0.5rem;
 }
 .upload-zone p { font-size: 0.875rem; color: var(--text-muted); margin-bottom: 0.25rem; }
 .upload-zone span { font-size: 0.75rem; color: var(--text-faint); }
 
 /* PRINT PREVIEW */
 .print-preview-box {
-  position: relative;
-  border-radius: var(--radius);
-  overflow: hidden;
-  border: 1.5px solid var(--border);
-  background: var(--surface2);
+    position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;
+    border: 1.5px solid var(--border);
+    background: var(--surface2);
 }
 .print-preview-box img { width: 100%; max-height: 180px; object-fit: contain; padding: 0.5rem; }
 .remove-print-btn {
-  position: absolute;
-  top: 0.5rem; right: 0.5rem;
-  background: rgba(0,0,0,0.6);
-  color: white;
-  border-radius: 100px;
-  padding: 0.3rem 0.6rem;
-  font-size: 0.72rem;
+    position: absolute;
+    top: 0.5rem; right: 0.5rem;
+    background: rgba(0,0,0,0.6);
+    color: white;
+    border-radius: 100px;
+    padding: 0.3rem 0.6rem;
+    font-size: 0.72rem;
 }
 .remove-print-btn:hover { background: rgba(0,0,0,0.85); }
 
 /* PRICE ROW */
 .price-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 0.9rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.9rem;
 }
 .price-label {
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--text-muted);
-  font-family: var(--font-mono);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-muted);
+    font-family: var(--font-mono);
 }
 .price-val {
-  font-family: var(--font-mono);
-  font-size: 1.2rem;
-  font-weight: 700;
+    font-family: var(--font-mono);
+    font-size: 1.2rem;
+    font-weight: 700;
 }
 
 /* MOCKUP PREVIEW */
 .designer-preview {
-  position: sticky;
-  top: calc(var(--nav-h) + 2rem);
+    position: sticky;
+    top: calc(var(--nav-h) + 2rem);
 }
 
 .mockup-wrapper {
-  background: var(--surface);
-  border: 1.5px solid var(--border);
-  border-radius: var(--radius-lg);
-  padding: 3rem 2rem 2rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1.5rem;
-  min-height: 500px;
-  justify-content: center;
+    background: var(--surface);
+    border: 1.5px solid var(--border);
+    border-radius: var(--radius-lg);
+    padding: 3rem 2rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    min-height: 500px;
+    justify-content: center;
 }
 
 .mockup-shirt {
-  position: relative;
-  width: 280px;
-  filter: drop-shadow(0 16px 32px rgba(0,0,0,0.12));
-  transition: filter var(--trans);
+    position: relative;
+    width: 280px;
+    filter: drop-shadow(0 16px 32px rgba(0,0,0,0.12));
+    transition: filter var(--trans);
 }
 
 #shirt-svg { transition: 0.3s ease; }
 
 .print-overlay {
-  position: absolute;
-  top: 38%;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 44%;
-  pointer-events: none;
+    position: absolute;
+    top: 38%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 44%;
+    pointer-events: none;
 }
 .print-overlay img {
-  width: 100%;
-  border-radius: 6px;
-  opacity: 0.95;
-  mix-blend-mode: multiply;
-  transition: opacity 0.3s ease;
+    width: 100%;
+    border-radius: 6px;
+    opacity: 0.95;
+    mix-blend-mode: multiply;
+    transition: opacity 0.3s ease;
 }
 
 .mockup-label {
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-faint);
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-faint);
 }
 
 /* GENERATING STATE */
 #generate-btn.loading {
-  pointer-events: none;
-  opacity: 0.7;
+    pointer-events: none;
+    opacity: 0.7;
 }
 #generate-btn.loading #gen-btn-text::after {
-  content: '';
-  display: inline-block;
-  width: 12px;
-  height: 12px;
-  border: 2px solid rgba(255,255,255,0.3);
-  border-top-color: white;
-  border-radius: 50%;
-  margin-left: 8px;
-  animation: spin 0.7s linear infinite;
-  vertical-align: middle;
+    content: '';
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    margin-left: 8px;
+    animation: spin 0.7s linear infinite;
+    vertical-align: middle;
 }
 @keyframes spin { to { transform: rotate(360deg); } }
 
 @media (max-width: 1100px) {
-  .designer-layout { grid-template-columns: 1fr; }
-  .designer-preview { position: relative; top: 0; }
+    .designer-layout { grid-template-columns: 1fr; }
+    .designer-preview { position: relative; top: 0; }
 }
 @media (max-width: 600px) {
-  .designer-layout { padding: 0 4vw 4rem; }
-  .garment-select { grid-template-columns: repeat(3,1fr); }
+    .designer-layout { padding: 0 4vw 4rem; }
+    .garment-select { grid-template-columns: repeat(3,1fr); }
 }
 
 /* COLOR WHEEL */
 .color-wheel-wrap {
-  position: relative;
-  display: inline-flex;
+    position: relative;
+    display: inline-flex;
 }
 .color-wheel-input {
-  position: absolute;
-  width: 0; height: 0;
-  opacity: 0;
-  pointer-events: none;
+    position: absolute;
+    width: 0; height: 0;
+    opacity: 0;
+    pointer-events: none;
 }
 .color-wheel-btn {
-  border: 2.5px solid transparent !important;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
+    border: 2.5px solid transparent !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
 }
 .color-wheel-btn svg {
-  filter: drop-shadow(0 0 1px rgba(0,0,0,0.6));
-  pointer-events: none;
+    filter: drop-shadow(0 0 1px rgba(0,0,0,0.6));
+    pointer-events: none;
 }
 .color-wheel-btn.active {
-  border-color: var(--text) !important;
-  box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--text);
+    border-color: var(--text) !important;
+    box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px var(--text);
+}
+
+/* ── 3D VIEWER ─────────────────────────────────────────────── */
+.mockup-wrapper-3d {
+    padding: 1rem 1rem 1.5rem;
+    gap: 1rem;
+    min-height: 520px;
+    position: relative;
+}
+
+#viewer3d-mount {
+    width: 100%;
+    height: 440px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    cursor: grab;
+    background: transparent;
+    flex-shrink: 0;
+}
+#viewer3d-mount:active { cursor: grabbing; }
+#viewer3d-mount canvas { display: block; width: 100% !important; height: 100% !important; }
+
+/* Controls bar */
+.viewer3d-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+}
+
+.viewer3d-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.4rem 0.9rem;
+    border-radius: 100px;
+    border: 1.5px solid var(--border);
+    background: var(--surface);
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    transition: var(--trans);
+    cursor: pointer;
+}
+.viewer3d-btn:hover { border-color: var(--text); color: var(--text); background: var(--surface2); }
+.viewer3d-btn.inactive { opacity: 0.5; }
+
+.viewer3d-hint {
+    font-family: var(--font-mono);
+    font-size: 0.62rem;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-left: auto;
+}
+
+[data-theme="dark"] #viewer3d-mount {
+    background: transparent;
+}
+
+@media (max-width: 600px) {
+    #viewer3d-mount { height: 320px; }
+    .viewer3d-hint  { display: none; }
+}
+
+/* ── 2D / 3D VIEW MODE TOGGLE ─────────────────────────────── */
+.view-mode-toggle {
+    display: flex;
+    background: var(--surface2);
+    border: 1.5px solid var(--border);
+    border-radius: 100px;
+    padding: 3px;
+    gap: 2px;
+    align-self: flex-start;
+    margin-bottom: 0.5rem;
+}
+
+.view-mode-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.32rem 0.85rem;
+    border-radius: 100px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    font-family: var(--font-mono);
+    letter-spacing: 0.06em;
+    color: var(--text-muted);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: var(--trans);
+}
+.view-mode-btn:hover { color: var(--text); }
+.view-mode-btn.active {
+    background: var(--text);
+    color: var(--accent-inv);
+    box-shadow: 0 1px 6px rgba(0,0,0,0.18);
+}
+
+/* 2D view sizing */
+#view-2d {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 280px;
+}
+#view-2d svg { width: 100%; height: auto; }
+
+/* Transition between modes */
+#view-2d, #viewer3d-mount {
+    transition: opacity 0.25s ease;
+}
+#view-2d.fading, #viewer3d-mount.fading {
+    opacity: 0;
+}
+
+/* ── MODEL UPLOAD BUTTON STATE ────────────────────────────── */
+#btn-upload-model.model-loaded {
+    border-color: var(--text);
+    color: var(--text);
+    background: var(--surface2);
+}
+#btn-upload-model.model-loaded svg {
+    stroke: var(--text);
+}
+
+/* Loading overlay inside 3D mount */
+#model-load-overlay {
+    pointer-events: none;
+}
+
+/* ── 3D VIEWER BACKGROUND ─────────────────────────────────── */
+/* Give the canvas area a neutral gradient so any garment colour
+   is visible — white shirts need a dark bg, dark shirts need light.
+   A mid-grey gradient works for both.                         */
+#viewer3d-mount {
+    background: radial-gradient(ellipse at 50% 40%,
+    #2a2a2e 0%, #18181c 60%, #111114 100%);
+}
+[data-theme="dark"] #viewer3d-mount {
+    background: radial-gradient(ellipse at 50% 40%,
+    #1e1e24 0%, #13131a 60%, #0a0a10 100%);
+}
+/* Wrapper in 3D mode gets matching dark border */
+.mockup-wrapper-3d {
+    background: var(--surface);
 }

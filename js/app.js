@@ -286,3 +286,57 @@ if (heroShirt) {
 document.addEventListener('DOMContentLoaded', () => {
     showPage('home');
 });
+// 3D VIEWER — auto-rotate toggle
+function toggleAutoRotate() {
+    const btn   = document.getElementById('btn-autorotate');
+    const label = document.getElementById('autorotate-label');
+    if (!window.viewer3d) return;
+    const isOn = label.textContent === 'Pause';
+    viewer3d.setAutoRotate(!isOn);
+    label.textContent = isOn ? 'Play' : 'Pause';
+    if (btn) btn.classList.toggle('inactive', isOn);
+}
+
+// VIEW MODE TOGGLE — 2D / 3D
+let currentViewMode = '2d';
+
+function setViewMode(mode) {
+    if (mode === currentViewMode) return;
+    currentViewMode = mode;
+
+    const view2d    = document.getElementById('view-2d');
+    const view3d    = document.getElementById('viewer3d-mount');
+    const controls  = document.getElementById('controls-3d');
+    const btn2d     = document.getElementById('btn-mode-2d');
+    const btn3d     = document.getElementById('btn-mode-3d');
+
+    // Fade out current
+    const outEl = mode === '3d' ? view2d : view3d;
+    const inEl  = mode === '3d' ? view3d : view2d;
+
+    outEl.classList.add('fading');
+
+    setTimeout(() => {
+        outEl.style.display = 'none';
+        outEl.classList.remove('fading');
+
+        inEl.style.display = mode === '3d' ? 'block' : 'flex';
+        inEl.classList.add('fading');
+        if (controls) controls.style.display = mode === '3d' ? 'flex' : 'none';
+
+        // Toggle active state on buttons
+        btn2d.classList.toggle('active', mode === '2d');
+        btn3d.classList.toggle('active', mode === '3d');
+
+        requestAnimationFrame(() => {
+            inEl.classList.remove('fading');
+            if (mode === '3d') {
+                // Init 3D on first switch, update on subsequent
+                if (window.viewer3d) {
+                    window.viewer3d.init();
+                    setTimeout(() => window.viewer3d.update(), 100);
+                }
+            }
+        });
+    }, 200);
+}

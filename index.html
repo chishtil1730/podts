@@ -265,18 +265,63 @@
 
         </div>
 
-        <!-- RIGHT: Mockup Preview -->
+        <!-- RIGHT: Mockup Preview (2D / 3D toggle) -->
         <div class="designer-preview">
-            <div class="mockup-wrapper">
-                <div class="mockup-shirt" id="mockup-shirt">
+            <div class="mockup-wrapper mockup-wrapper-3d">
+
+                <!-- View mode toggle — top of card -->
+                <div class="view-mode-toggle">
+                    <button class="view-mode-btn active" id="btn-mode-2d" onclick="setViewMode('2d')">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2"/>
+                            <path d="M9 9h6M9 12h6M9 15h4"/>
+                        </svg>
+                        2D
+                    </button>
+                    <button class="view-mode-btn" id="btn-mode-3d" onclick="setViewMode('3d')">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                            <path d="M2 17l10 5 10-5"/>
+                            <path d="M2 12l10 5 10-5"/>
+                        </svg>
+                        3D
+                    </button>
+                </div>
+
+                <!-- 2D SVG mockup -->
+                <div id="view-2d" class="mockup-shirt" id="mockup-shirt">
                     <svg id="shirt-svg" viewBox="0 0 300 340" xmlns="http://www.w3.org/2000/svg">
                         <path id="shirt-body" d="M75 40 L30 80 L60 110 L60 300 L240 300 L240 110 L270 80 L225 40 L195 20 C185 50 115 50 105 20 Z" fill="#111" stroke="none"/>
                         <path d="M105 20 C115 50 185 50 195 20" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="1.5"/>
                     </svg>
-                    <!-- print rendered inside SVG via clipPath -->
                 </div>
+
+                <!-- 3D viewer canvas injected here -->
+                <div id="viewer3d-mount" style="display:none"></div>
+
+                <!-- 3D Controls bar (only visible in 3D mode) -->
+                <div class="viewer3d-controls" id="controls-3d" style="display:none">
+                    <button class="viewer3d-btn" id="btn-flip" onclick="viewer3d.flipToBack()" title="Flip front/back">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/>
+                            <path d="M3 3v5h5"/>
+                        </svg>
+                        Flip
+                    </button>
+                    <button class="viewer3d-btn" id="btn-autorotate" onclick="toggleAutoRotate()" title="Toggle auto-rotate">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="23 4 23 10 17 10"/>
+                            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+                        </svg>
+                        <span id="autorotate-label">Pause</span>
+                    </button>
+
+
+                    <div class="viewer3d-hint">Drag to rotate · Scroll to zoom</div>
+                </div>
+
                 <div class="mockup-label">
-                    <span id="mockup-label-text">Classic Tee — White — M</span>
+                    <span id="mockup-label-text">Classic Tee — Black — M</span>
                 </div>
             </div>
         </div>
@@ -428,6 +473,7 @@
 <script src="js/designer.js"></script>
 <script src="js/app.js"></script>
 <script src="js/trends.js"></script>
+<script src="js/viewer3d.js"></script>
 <script src="js/animations.js"></script>
 </body>
 </html>
